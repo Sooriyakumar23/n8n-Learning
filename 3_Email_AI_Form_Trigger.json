@@ -1,0 +1,123 @@
+{
+  "name": "3_Email_AI_Form_Trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Greeting User !",
+        "formDescription": "We'll send a nice perfect greeting msg to you folks !",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Sweet Name ?",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "What is your favourite food ?"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -304,
+        0
+      ],
+      "id": "8ab28b41-1418-4ccb-8dff-eeba2291a952",
+      "name": "On form submission",
+      "webhookId": "aa32fb94-3cfc-4697-9aa2-f5d35c4e02e3"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Generate a funny and awesome greeting message using following details:\nName:  {{ $json['Sweet Name ?'] }}\nFavourite Food: {{ $json['What is your favourite food ?'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -96,
+        0
+      ],
+      "id": "703125b0-97e7-4570-b2ef-1aa80b1d2961",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "z69eTaskrkXCW2hL",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "sisooriyakumar@gmail.com",
+        "subject": "=Hey User,  {{ $('On form submission').item.json['Sweet Name ?'] }}",
+        "message": "={{ $json.message.content }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        0
+      ],
+      "id": "e2e87591-d872-4c81-95b2-55b6ec54fd4f",
+      "name": "Send a message",
+      "webhookId": "c4463537-92dc-481d-ac4b-bae5db2308ba",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dUIHooejlZQcKOZ2",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "190459bf-8658-48ba-b8f7-4324138aac05",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4d3800fa175e177e142c177530532a95d9984f19b5a733b8099571605c965fe6"
+  },
+  "id": "vrmkrH3XziVknChI",
+  "tags": []
+}

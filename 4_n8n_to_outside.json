@@ -1,0 +1,88 @@
+{
+  "name": "4_n8n_to_outside",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://catfact.ninja/facts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "20a068c6-d6e9-4ea9-8654-9c54e6496a64",
+      "name": "HTTP Request",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "formTitle": "Get Cat Facts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -32,
+        0
+      ],
+      "id": "42c3a575-6fca-47ef-82f9-39ad74575f65",
+      "name": "On form submission",
+      "webhookId": "97eaab27-fbe7-4c8d-96c1-c1e802fdd0b2"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Received Cat Fact",
+        "completionMessage": "={{ $json.data[0].fact }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "394190f4-ee14-4917-a30d-bdf9dd0ab688",
+      "name": "Form",
+      "webhookId": "57ac1a60-1c26-4fcc-935a-9b2d6634845e",
+      "alwaysOutputData": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bb91391b-e182-4d66-ad9e-73ff29bb9a5d",
+  "meta": {
+    "instanceId": "4d3800fa175e177e142c177530532a95d9984f19b5a733b8099571605c965fe6"
+  },
+  "id": "voymySafJz499VgE",
+  "tags": []
+}

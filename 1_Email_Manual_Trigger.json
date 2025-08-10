@@ -1,0 +1,80 @@
+{
+  "name": "1_Email_Manual_Trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## n8n Basic\n**First Time** working with n8n. [Official Link](https://n8n.io/)",
+        "height": 96,
+        "width": 336
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -608,
+        -176
+      ],
+      "typeVersion": 1,
+      "id": "cf0c47e2-2504-467e-95bb-7c4aa469a664",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        0
+      ],
+      "id": "13bd8abe-8cab-4005-9c62-126074680dff",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "sendTo": "sisooriyakumar@gmail.com",
+        "subject": "Hello n8n World !",
+        "emailType": "text",
+        "message": "Hi my first n8n workflow",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -384,
+        0
+      ],
+      "id": "08ce3344-9f55-45ee-95a8-f910b634fdc1",
+      "name": "Send a message",
+      "webhookId": "aaf42d4c-1b0e-4b02-8b18-22d304cf2dea",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dUIHooejlZQcKOZ2",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9b97a5e4-0c74-47c0-b42d-365419c825ce",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4d3800fa175e177e142c177530532a95d9984f19b5a733b8099571605c965fe6"
+  },
+  "id": "CHgzmbCyL0Cikm1S",
+  "tags": []
+}

@@ -1,0 +1,85 @@
+{
+  "name": "2_Email_Form_Trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Collect User Details",
+        "formDescription": "We'll reach out to you via email",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "What's your name ?",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "What's your Age ?",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Your favourite food please"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -400,
+        -16
+      ],
+      "id": "6d2afde0-0c84-4466-bc0f-0971b4006f1d",
+      "name": "On form submission",
+      "webhookId": "4d7f26a3-9f13-4edf-afbd-c0d0f3f9bc0b"
+    },
+    {
+      "parameters": {
+        "sendTo": "sisooriyakumar@gmail.com",
+        "subject": "Hey Amazing User !",
+        "message": "=Hi {{ $json['What\\'s your name ?'] }},\nHow are you doing at this {{ $json['What\\'s your Age ?'] }} years old.\nHope you will get tons of food: {{ $json['Your favourite food please'] }}.\nWe received your messag at {{ $json.submittedAt }}.\n\nThanks & Regards,\nSecond Workflow,\nn8n.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        -16
+      ],
+      "id": "1b98f7e6-4c78-487d-9a7e-ac87596af6d0",
+      "name": "Send a message",
+      "webhookId": "4b76b219-c683-49bf-828c-6d434d0199bb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dUIHooejlZQcKOZ2",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3e160dc3-7108-44e8-9af6-a5c7a2c9a022",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4d3800fa175e177e142c177530532a95d9984f19b5a733b8099571605c965fe6"
+  },
+  "id": "QPMQa4gEsCtwyIum",
+  "tags": []
+}
