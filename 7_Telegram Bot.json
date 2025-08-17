@@ -1,0 +1,118 @@
+{
+  "name": "7_Telegram Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a1540491-152a-4376-aeff-d456ac401172",
+      "name": "Telegram Trigger",
+      "webhookId": "363f48d9-842d-47d3-b228-edeff7a5c239",
+      "credentials": {
+        "telegramApi": {
+          "id": "Cpm8Q7ylMTwxYUqA",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-nano",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-NANO"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are helpful assistant. Give me a proper response with crazy love.\n\n {{ $json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        208,
+        0
+      ],
+      "id": "591339d9-a799-4505-8dfb-f3ec26150b7c",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "z69eTaskrkXCW2hL",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.message.content }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "15895f42-8bab-4e71-932d-18b0cdf19318",
+      "name": "Send a text message",
+      "webhookId": "141535d1-2cc4-455d-b1cb-0dec1133e251",
+      "credentials": {
+        "telegramApi": {
+          "id": "Cpm8Q7ylMTwxYUqA",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "205698f7-5543-4469-a7d8-10092df83a0f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4d3800fa175e177e142c177530532a95d9984f19b5a733b8099571605c965fe6"
+  },
+  "id": "giBnE7OrCrglBT7o",
+  "tags": []
+}
